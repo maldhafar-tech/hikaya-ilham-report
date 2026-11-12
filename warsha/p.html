@@ -99,9 +99,10 @@ footer{font-size:13px;color:var(--muted);text-align:center}
 
   <section id="v-wait" hidden>
     <h2>بانتظار النشاط التالي</h2>
-    <p class="note">تنتقل الصفحة تلقائياً حين يبدأ النشاط. وإن لم تنتقل، اكتب رمز النشاط الظاهر على الشاشة.</p>
+    <p class="note">ستنتقل صفحتك تلقائياً إلى النشاط حين يبدأ، ولا تحتاج إلى فعل شيء.</p>
+    <details id="manual"><summary class="note" style="cursor:pointer;text-decoration:underline">لم تنتقل الصفحة؟</summary><p class="note">اكتب الرمز الصغير الظاهر أسفل شاشة العرض.</p>
     <div class="code"><input type="text" id="code" inputmode="numeric" maxlength="3" aria-label="رمز النشاط" placeholder="٠٠٠"><button type="button" class="primary" id="codeBtn">فتح</button></div>
-    <p class="msg" id="codeMsg" aria-live="polite"></p>
+    <p class="msg" id="codeMsg" aria-live="polite"></p></details>
   </section>
 
   <section id="v-a1" hidden>
@@ -275,7 +276,7 @@ footer{font-size:13px;color:var(--muted);text-align:center}
   if(w && /^[a-z0-9-]{6,60}$/.test(w)){ if(st.w!==w){ st.w=w; st.lastT=0; } E.save(); } else { w=null; }
   var live=$('live');
   function setLive(ok){ if(!live) return; live.className=ok?'on':'off'; live.textContent=ok?'متصل بالعرض':'غير متصل، استخدم رمز النشاط'; }
-  if(!w){ return; }
+  if(!w){ var md=$('manual'); if(md) md.open=true; return; }
   var HOST='https://ntfy.sh/', CT='evw-'+w+'-c', AT='evw-'+w+'-a';
   if(!st.pid){ st.pid=Math.random().toString(36).slice(2,10); E.save(); }
   function base(t){ var r=st.reg||{}; return {p:st.pid,t:t,n:(r.name||'').slice(0,80),s:r.school||'',r:r.role||''}; }
